@@ -67,3 +67,35 @@ Asi en nuestro navegador, cuando pongamos "/about" ademas de la ruta normal, nos
 
 También podemos agregar rutas, aquí se usan los `a` de toda la vida, ya que es un SSR site
 
+### Write your first Markdown blog post
+
+Uno también puede crear paginas con un `.md`, por ejemplo `/posts/post-1.md`
+
+Ahi podemos diferenciar en las rutas, al ponerlas en el navegador, cuando existe la pagina y cuando no, por ejemplo poner `/posts/post-2.md` aunque no este creado, para ver el error
+
+Este formato que luce asi
+
+```markdown
+---
+title: "My First Blog Post"
+---
+```
+
+Se llama `frontmatter`, es information sobre nuestro post que Astro puede usar, aunque no aparece en la pagina automáticamente
+
+También, podemos poner un anchor en nuestro `blog.astro`, para que nos dirija a nuestro post, asi
+
+```astro
+<ul>
+  <li><a href="/posts/post-1/">Post 1</a></li>
+</ul>
+```
+
+> [!TIP]
+> Recordar que ahi los anchor se colocan asi
+
+```markdown
+[Discord community](https://astro.build/chat)
+```
+
+### Add dynamic content about you

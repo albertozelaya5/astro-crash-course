@@ -1,3 +1,7 @@
+---
+const pageTitle = "My Astro Learning Blog"
+
+---
 <html lang="en">
   <head>
     <meta charset="utf-8" />
@@ -5,7 +9,8 @@
     <link rel="icon" href="/favicon.ico" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
-    <title>About me</title>
+    <!-- <title>About me</title> -->
+    <title>{pageTitle}</title>
   </head>
 
   <body>
@@ -13,7 +18,8 @@
     <a href="/about">About</a>
     <a href="/blog">Blog</a>
 
-    <h1>Blog</h1>
+    <!-- <h1>Blog</h1> -->
+    <h1>{pageTitle}</h1>
     <p>Estos son mis posts:</p>
 
     <ul>

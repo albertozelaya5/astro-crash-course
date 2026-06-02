@@ -99,3 +99,41 @@ También, podemos poner un anchor en nuestro `blog.astro`, para que nos dirija a
 ```
 
 ### Add dynamic content about you
+
+EN los .astro podemos hacer mas que poner un html
+
+Podemos hacer js también, y para eso usamos esto `---`
+
+```astro
+---
+const pageTitle = "My Astro Learning Blog";
+---
+
+<html lang="en">
+  <!-- RESTO DEL CONTENIDO -->
+  <title>{pageTitle}</title>
+</html>
+```
+
+Asi le pasamos data dinámica al html, pudiendo modificar la metadata también!
+
+> [!IMPORTANT]
+> Entre estas `---` frontmatter script, solo contiene javascript
+> Y para incluir ese js en el html se ocupa de esto `{}`
+
+```astro
+---
+const skills = ["HTML", "CSS", "JavaScript", "React", "Astro", "Writing Docs"];
+const goal = 3;
+---
+
+<ul>{skills.map((skill) => <li>{skill}</li>)}</ul>
+
+{
+  goal === 3 ? (
+    <p>My goal is to finish in 3 days</p>
+  ) : (
+    <p>My goal is not 3 days.</p>
+  )
+}
+```

@@ -299,3 +299,55 @@ También se puede poner js en los .astro, antes de que termine el `body`
   menu?.addEventListener("click", () => {});
 </script>
 ```
+
+### Check in: Unit 4 - Layouts
+
+Vamos a
+
+- Create reusable layout components
+- Pass content to your layouts with <slot />
+- Pass data from Markdown frontmatter to your layouts
+- Nest multiple layouts
+
+Asi como hicimos componentes, vamos a hacer un `Layout general`, para ello nos vamos a `src > pages > layouts > BaseLayout.astro`
+
+Y ahi ponemos todo lo base que pusimos en el `index.astro`
+
+Ver [BaseLayout](/src/pages/layouts/BaseLayout.astro)
+
+Y esa es la magia, refactorizamos todo lo demás✨
+
+Y lo que sea diferente, lo ponemos dentro del componente, estilos, etc
+Y el js lo ponemos siempre arriba
+
+```
+---
+import BaseLayout from "./layouts/BaseLayout.astro";
+const happy = true;
+
+---
+<BaseLayout pageTitle={pageTitle}>
+ <style define:vars={{ skillColor, fontWeight, textCase }}>
+ <!-- RESTO DE ESTILOS -->
+ </style>
+
+  {happy && <p>I am happy to be learning Astro!</p>}
+
+</BaseLayout>
+```
+
+Y en el `BaseLayout` component, para que se muestra toda la information de los children, usamos el `slot` placeholder
+
+```astro
+---
+
+---
+
+<slot />
+<script>
+  import "../scripts/menu";
+</script>
+```
+
+Y asi pasamos código javascript también
+

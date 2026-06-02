@@ -1,7 +1,5 @@
 ---
-import "../styles/global.css";
-import Footer from "./components/Footer.astro";
-import Header from "./components/Header.astro";
+import BaseLayout from "./layouts/BaseLayout.astro";
 
 const pageTitle = "About Me";
 
@@ -23,82 +21,57 @@ const fontWeight = "bold";
 const textCase = "uppercase";
 ---
 
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="icon" href="/favicon.ico" />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="generator" content={Astro.generator} />
-    <!-- <title>About me</title> -->
-    <title>{pageTitle}</title>
-    <style define:vars={{ skillColor, fontWeight, textCase }}>
-      /* html {
+<BaseLayout pageTitle={pageTitle}>
+  <style define:vars={{ skillColor, fontWeight, textCase }}>
+    /* html {
         font-size: 62.5%;
       } */
-      h1 {
-        color: purple;
-        font-size: 4rem;
-      }
-
-      .skill {
-        /* color: green; */
-        color: var(--skillColor);
-        /* font-weight: bold; */
-        font-weight: var(--fontWeight);
-        text-transform: var(--textCase);
-      }
-    </style>
-  </head>
-
-  <body>
-    <Header />
-
-    <!-- <h1>About me</h1> -->
-    <h1>{pageTitle}</h1>
-    <p>Hola, mi nombre es Alberto</p>
-    <p>
-      This site will update as I complete more of the tutorial, so keep checking
-      back and see how my journey is going!
-    </p>
-
-    <p>Estos son mis posts:</p>
-
-    <ul>
-      <li><a href="/posts/post-1/">Post 1</a></li>
-      <li><a href="/posts/post-2/">Post 2</a></li>
-      <li><a href="/posts/post-3/">Post 3</a></li>
-    </ul>
-
-    <p>Here are a few facts about me:</p>
-    <ul>
-      <li>My name is {identity.firstName}</li>
-      <li>
-        I live in {identity.country} and I work as a {identity.occupation}.
-      </li>
-      {
-        identity.hobbies.length >= 2 && (
-          <li>
-            Two of my hobbies are: {identity.hobbies[0]} and{" "}
-            {identity.hobbies[1]}
-          </li>
-        )
-      }
-    </ul>
-    <p>My skills are:</p>
-    <ul>{skills.map((skill) => <li class="skill">{skill}</li>)}</ul>
-
-    {happy && <p>I am happy to be learning Astro!</p>}
-    {finished && <p>I finished this tutorial!</p>}
-
-    {
-      goal === 3 ? (
-        <p>My goal is to finish in 3 days</p>
-      ) : (
-        <p>My goal is not 3 days.</p>
-      )
+    h1 {
+      color: purple;
+      font-size: 4rem;
     }
 
-    <Footer />
-  </body>
-</html>
+    .skill {
+      /* color: green; */
+      color: var(--skillColor);
+      /* font-weight: bold; */
+      font-weight: var(--fontWeight);
+      text-transform: var(--textCase);
+    }
+  </style>
+
+  <!-- <h1>About me</h1> -->
+  <p>Hola, mi nombre es Alberto</p>
+  <p>
+    This site will update as I complete more of the tutorial, so keep checking
+    back and see how my journey is going!
+  </p>
+
+  <p>Here are a few facts about me:</p>
+  <ul>
+    <li>My name is {identity.firstName}</li>
+    <li>
+      I live in {identity.country} and I work as a {identity.occupation}.
+    </li>
+    {
+      identity.hobbies.length >= 2 && (
+        <li>
+          Two of my hobbies are: {identity.hobbies[0]} and {identity.hobbies[1]}
+        </li>
+      )
+    }
+  </ul>
+  <p>My skills are:</p>
+  <ul>{skills.map((skill) => <li class="skill">{skill}</li>)}</ul>
+
+  {happy && <p>I am happy to be learning Astro!</p>}
+  {finished && <p>I finished this tutorial!</p>}
+
+  {
+    goal === 3 ? (
+      <p>My goal is to finish in 3 days</p>
+    ) : (
+      <p>My goal is not 3 days.</p>
+    )
+  }
+</BaseLayout>

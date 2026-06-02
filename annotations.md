@@ -137,3 +137,35 @@ const goal = 3;
   )
 }
 ```
+
+### Style your About page
+
+Ademas de js, tambien podemos poner css, y para ello usamos la etiqueta `style`
+
+```astro
+<style>
+  h1 {
+    color: purple;
+    font-size: 4rem;
+  }
+</style>
+```
+
+Y asi como en el html, también podemos mandar variables de js, pero para ello, ocupamos mandar una directiva de astro llamada `define:vars`, que es un objeto, donde le pasamos las variables que ocupemos
+
+Como en react al pasar css
+
+```astro
+<style define:vars={{ skillColor, fontWeight, textCase }}>
+  h1 {
+    color: purple;
+    font-size: 4rem;
+  }
+
+  .skill {
+    color: var(--skillColor);
+    font-weight: var(--fontWeight);
+    text-transform: var(--textCase);
+  }
+</style>
+```

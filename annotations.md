@@ -238,3 +238,64 @@ import Social from "./Social.astro";
   }
 </style>
 ```
+
+### Build it yourself - Header
+
+Vamos a hacer el sitio responsive, aprenderemos a hacer esto
+
+- Create a Header for your site that contains the Navigation component
+- Make the Navigation component responsive
+
+También podemos poner componentes dentro de otros componentes
+
+Y podemos asignarle clases para estilizar globalmente
+
+```astro
+<div id="main-menu" class="nav-links">
+  <a href="/">Home</a>
+</div>
+```
+
+En el [global.css](/src/styles/global.css)
+
+```css
+@media (min-width: 40em) {
+  .nav-links {
+    margin-left: 5em;
+  }
+
+  .nav-links a {
+    display: inline-block;
+  }
+}
+```
+
+### Send your first script to the browser
+
+Haremos un botón para crear y cerrar el menu de navegación
+
+- Create a menu component
+- Write a <script> to allow your site visitors to open - and close the navigation menu
+- Move your JavaScript to its .js file
+
+Le ponemos un has
+
+```css
+:has(.menu[aria-expanded="true"]) .nav-links {
+  display: unset;
+}
+```
+
+A grandes rasgos dice: "Busca un contenedor padre que tenga adentro (:has) un elemento .menu abierto (aria-expanded="true"). Si lo encuentras, aplícate los siguientes estilos a su elemento hijo .nav-links".
+
+Cuando es `unset`, lo que hace es borrar o Resetear el valor que tenga la propiedad antes, usando el valor por defecto
+
+También se puede poner js en los .astro, antes de que termine el `body`
+
+```html
+<script>
+  const menu = document.querySelector(".menu");
+
+  menu?.addEventListener("click", () => {});
+</script>
+```

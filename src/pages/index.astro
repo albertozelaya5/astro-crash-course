@@ -1,7 +1,7 @@
 ---
 import "../styles/global.css";
 import Footer from "./components/Footer.astro";
-import Navigation from "./components/Navigation.astro";
+import Header from "./components/Header.astro";
 
 const pageTitle = "Home Page";
 ---
@@ -18,7 +18,7 @@ const pageTitle = "Home Page";
   </head>
 
   <body>
-    <Navigation />
+    <Header />
     <!-- <h1>Landing page</h1> -->
     <h1>{pageTitle}</h1>
 
@@ -31,5 +31,8 @@ const pageTitle = "Home Page";
     </ul>
 
     <Footer />
+    <script>
+      import "./scripts/menu";
+    </script>
   </body>
 </html>

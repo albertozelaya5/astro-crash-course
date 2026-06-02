@@ -199,3 +199,42 @@ Vamos a hacer esto
 - An interactive Menu component to toggle the Navigation on mobile
 
 ### Make a reusable Navigation component
+
+Hacemos la carpeta de `src > components`
+
+La diferencia entre esto y archivos normales, es la nomenclatura, ya que los componentes siempre inician en PascalCase
+
+Ahora estos componentes pueden tener props, y para ello usamos esto
+
+Este es el componente, para leer las props se leen de `Astro.props`
+
+```astro
+---
+const { platform, username } = Astro.props;
+---
+
+<a href={`https://www.${platform}.com/${username}`}>{platform}</a>
+```
+
+Y aquí se le envían las props
+
+```astro
+---
+import Social from "./Social.astro";
+---
+
+<Social platform="youtube" username="astrodotbuild" />
+```
+
+> [!NOTE]
+> Para estilizar, se puede usar la etiqueta `style`, no importa si es al final del html
+
+```astro
+<a href={`https://www.${platform}.com/${username}`}>{platform}</a>
+
+<style>
+  a {
+    padding: 0.5rem 1rem;
+  }
+</style>
+```

@@ -351,3 +351,10 @@ Y en el `BaseLayout` component, para que se muestra toda la information de los c
 
 Y asi pasamos código javascript también
 
+### Create and pass data to a custom blog layout
+
+Vamos a poner un layout a nuestro blog
+
+- Create a new blog post layout for your Markdown files
+- Pass YAML frontmatter values as props to layout component
+

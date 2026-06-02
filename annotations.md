@@ -169,3 +169,33 @@ Como en react al pasar css
   }
 </style>
 ```
+
+> [!NOTE]
+> Todos estos estilos solo aplican al modulo en si, no he visto algo global aun
+
+#### Como el global.css y el <style> tag trabajan juntos?
+
+Cuando hay un conflicto, siempre en el que esta en el style del `.astro` va a tener prioridad
+
+Eso y, también se pueden importar estilos globales, pero solo desde el js
+
+```astro
+---
+import "../styles/global.css";
+
+const pageTitle = "Home Page";
+---
+```
+
+### Check in: Unit 3 - Components
+
+Al fin vamos a crear componentes de astro
+
+Vamos a hacer esto
+
+- A Navigation component that presents a menu of links to your pages
+- A Footer component to include at the bottom of each page
+- A Social Media component, used in the Footer, that links to profile - pages
+- An interactive Menu component to toggle the Navigation on mobile
+
+### Make a reusable Navigation component

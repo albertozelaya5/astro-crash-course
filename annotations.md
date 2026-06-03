@@ -523,3 +523,23 @@ Ya luego estilizamos eso
 Entonces, tenemos dos formas de generar una ruta, mediante `nombre.astro`, o `nombre/index.astro`
 
 Y al buscar la ruta `/nombre/` saldrá lo mismo
+
+### Add an RSS feed
+
+Un RSS feed es simplemente un archivo de texto automático que contiene la lista de mis posts markdowns con su título, descripción y enlace.
+
+Este documento se actualiza cada que se hace un built
+
+Ahora vamos a
+
+- Instala un paquete Astro para crear un feed RSS para tu sitio web.
+- Crea un feed al que se pueda suscribir y que puedan leer los lectores de feeds RSS.
+
+Astro tiene una librería para eso
+
+Usamos
+
+```bash
+pnpm add @astrojs/rss
+```
+

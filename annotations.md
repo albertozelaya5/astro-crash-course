@@ -320,19 +320,17 @@ Y esa es la magia, refactorizamos todo lo demás✨
 Y lo que sea diferente, lo ponemos dentro del componente, estilos, etc
 Y el js lo ponemos siempre arriba
 
-```
+```astro
 ---
 import BaseLayout from "./layouts/BaseLayout.astro";
 const happy = true;
-
 ---
+
 <BaseLayout pageTitle={pageTitle}>
- <style define:vars={{ skillColor, fontWeight, textCase }}>
- <!-- RESTO DE ESTILOS -->
- </style>
+  <style define:vars={{ skillColor, fontWeight, textCase }}></style>
+  //* RESTO DE ESTILOS
 
   {happy && <p>I am happy to be learning Astro!</p>}
-
 </BaseLayout>
 ```
 
@@ -428,3 +426,68 @@ El `import.meta.glob()` nos dará un objeto, que tenga las propiedades de todos 
 2. un objeto con la prop `eager`, que sirve para pasar de una carga asíncrona(lazy), a síncrona(eager)
 
 Y el `BlogPost` component es para hacer un list de `a`, mandando sus propiedades
+
+### Generate tag pages
+
+Podemos crear infinitas paginas usando `.astro`, que exporta una function `getStaticPaths()`
+
+Para crear rutas dinámicas debemos hacer un archivo con nombre dinámico `[tag].astro`, y este archivo debe exportar la function `getStaticPaths()`
+
+Esta function debe retornar un array anidado con esta estructura
+
+```astro
+---
+export async function getStaticPaths() {
+  const allPosts = Object.values(
+    import.meta.glob("../posts/*.md", { eager: true }),
+  );
+
+  return [{ params: { tag: "astro" }, props: { posts: allPosts } }];
+}
+---
+```
+
+Ya que queremos mandar una lista de los post, usamos nuevamente el `import.meta.glob()`
+
+Y ese array anidado tendrá objetos que lleven `params`, y ahi definir las propiedades que queramos
+
+Esas propiedades dentro de params las vamos a usar en nuestro código
+
+```astro
+---
+const { tag } = Astro.params;
+const { posts } = Astro.props;
+const filteredPosts = posts.filter((post: any) =>
+  post.frontmatter.tags?.includes(tag),
+);
+---
+```
+
+Y aquí en base a lo que obtenemos de `allPosts`, filtramos los post por los que incluyen en sus `tags` esas palabras
+
+Ahora todas esta estructura rara, es también porque usamos rutas estáticas
+
+---
+
+Ahora vamos aprender a como generar estas rutas dinámicas, una ruta por cada `tag`
+
+Primero, ocupamos solo los tags, sin repetidos
+
+```astro
+---
+const allPosts = Object.values(
+  import.meta.glob("../posts/*.md", { eager: true }),
+);
+const uniqueTags = [
+  ...new Set(allPosts.map((post: any) => post.frontmatter.tags)),
+];
+---
+```
+
+Esto siempre dentro de la `getStaticPaths()` ya que solo lo ocupamos ahi
+
+Luego, de esos tags únicos, vamos a imprimir una lista de los posts, que tengan incluidos tags que coincidan
+
+Y por cada tag(ruta), vamos a imprimir los posts que incluyan el tag que se este mostrando
+
+En resumen, por cada pagina (tags), se mostaran los posts que tienen tags en común en sus `---` o frontmatter

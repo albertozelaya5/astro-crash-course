@@ -358,3 +358,26 @@ Vamos a poner un layout a nuestro blog
 - Create a new blog post layout for your Markdown files
 - Pass YAML frontmatter values as props to layout component
 
+Para los markdowns, usamos la propiedad `frontmatter`, lo demas es lo mismo
+
+```astro
+---
+const { frontmatter } = Astro.props;
+---
+
+<meta charset="utf-8" />
+<h1>{frontmatter.title}</h1>
+
+<slot />
+```
+
+Y en los md esas props se mandan en esto
+
+```markdown
+---
+layout: ../layouts/MarkdownPostLayout.astro
+title: "My First Blog Post"
+---
+```
+
+E importamos el componente mediante la propiedad `layout`

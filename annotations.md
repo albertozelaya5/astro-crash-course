@@ -491,3 +491,35 @@ Luego, de esos tags únicos, vamos a imprimir una lista de los posts, que tengan
 Y por cada tag(ruta), vamos a imprimir los posts que incluyan el tag que se este mostrando
 
 En resumen, por cada pagina (tags), se mostaran los posts que tienen tags en común en sus `---` o frontmatter
+
+> [!TIP]
+> Aunque le ponga _learning%20in%20public_, lo va a leer como "learning in public"
+
+Y asi, se hace que cada de esas nuevas rutas coincida con los componentes que queremos
+
+### Build a tag index page
+
+- Vamos a agregar una nueva pagina usando un nuevo patron de rutas
+- Mostrar una lista de nuestras tags únicas, con enlaces a las paginas de cada tag
+
+En este index, vamos a mostrar una lista de los tags, con las rutas para llegar a ellos, usamos siempre el `allPosts` y el `uniqueTags`
+
+```astro
+<div>
+  {
+    uniqueTags.map((tag) => (
+      <p>
+        <a href={`/tags/${tag}`}>{tag}</a>
+      </p>
+    ))
+  }
+</div>
+```
+
+Y gracias al código anterior
+
+Ya luego estilizamos eso
+
+Entonces, tenemos dos formas de generar una ruta, mediante `nombre.astro`, o `nombre/index.astro`
+
+Y al buscar la ruta `/nombre/` saldrá lo mismo

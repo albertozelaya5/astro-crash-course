@@ -381,3 +381,50 @@ title: "My First Blog Post"
 ```
 
 E importamos el componente mediante la propiedad `layout`
+
+### Combine layouts to get the best of both worlds
+
+Ahora podemos hacer que estos markdowns tengan el mismo formato que el resto de la pagina, esto con ayuda del `BaseLayout`, que lo pondremos en `MarkdownPostLayout`
+
+```astro
+<BaseLayout pageTitle={frontmatter.title}>
+  <p>Published on: {frontmatter.pubDate.toString().slice(0, 10)}</p>
+  <!-- RESTO DEL COMPONENTE QUE VA EN LOS MARKDOWNS -->
+  <slot />
+</BaseLayout>
+```
+
+## Check in: Unit 5 - Astro API
+
+Vamos a cargar nuestro blog con una `RSS feed` => sepa que es eso xd
+
+- import.meta.glob() to access data from files in your project
+- getStaticPaths() to create multiple pages (routes) at once
+- The Astro RSS package to create an RSS feed
+
+### Create a blog post archive
+
+En lugar de poner los post de forma estática, los podemos mandar de forma dinámica
+
+```astro
+---
+const allPosts = Object.values(
+  import.meta.glob("./posts/*.md", { eager: true }),
+);
+---
+
+<ul>
+  {
+    allPosts.map((post: any) => (
+      <BlogPost url={post.url} title={post.frontmatter.title} />
+    ))
+  }
+</ul>
+```
+
+El `import.meta.glob()` nos dará un objeto, que tenga las propiedades de todos los post, ocupa dos argumentos
+
+1. La ubicación de el, o los post (poner `*` si quiere que sean todos)
+2. un objeto con la prop `eager`, que sirve para pasar de una carga asíncrona(lazy), a síncrona(eager)
+
+Y el `BlogPost` component es para hacer un list de `a`, mandando sus propiedades

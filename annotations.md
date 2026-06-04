@@ -562,3 +562,53 @@ export async function GET(context: any) {
 ```
 
 Podemos cambiar el titulo, description, poner el nombre de nuestro sitio en netlify, con `pagesGlobToRssItems()` importamos todos los posts, y podemos cambiar el lenguaje
+
+## Check in: Unit 6 - Astro Islands
+
+Ahora vamos a aprender a agregar islas a nuestro sitio
+
+Estas son para incorporar componentes de front a nuestro sitio Astro
+
+Vamos a
+
+- Add a UI framework, Preact, to your Astro project
+- Use Preact to create an interactive greeting component
+- Learn when you might not choose islands for interactivity
+
+Ahora vamos a agregar react a nuestro proyecto de astro => también podemos con preact!
+
+````bash
+pnpm astro add preact
+```
+
+```bash
+pnpm astro add react
+````
+
+Y luego podemos hacer un componente
+Ver [Greeting.tsx](/src/components/Greeting.tsx)
+
+Y este componente al usarlo lo hacemos asi
+
+```astro
+<Greeting
+  client:load
+  messages={["Hola, Que pedos", "Que ondas prrin", "Uwu"]}
+/>
+```
+
+Le ponemos la directiva `client:load`, que le dice a Astro que envié y vuelva a ejecutar el código Javascript del lado del cliente, cuando se carga la pagina, haciéndolo interactivo
+
+Este componente se renderizara luego de que cargue la pagina, y todos los elementos interactivos que tiene funcionaran
+
+A esto se le llama **Componente hidratado**
+
+> [!NOTE]
+> Ese código en `---` se ejecuta del lado del servidor
+> Client = Browser
+
+También, existen otras directivas, cada una envía el código Javascript al cliente en un tiempo diferente, `client:visible` por ejemplo, solo envía el componente cuando este es visible en la pagina
+
+Una via rápida, es que si responde a los inputs o eventos, tiene una `client` directive
+
+Si no lo tienen, se mostrara `Html` y `CSS`, pero no funcionara el js

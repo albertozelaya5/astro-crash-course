@@ -612,3 +612,21 @@ También, existen otras directivas, cada una envía el código Javascript al cli
 Una via rápida, es que si responde a los inputs o eventos, tiene una `client` directive
 
 Si no lo tienen, se mostrara `Html` y `CSS`, pero no funcionara el js
+
+## Back on dry land. Take your blog from day to night, no island required!
+
+Ahora vasos a hacer un darkTheme
+
+#### Como identificar si el usuario tiene un dark mode en su sistema?
+
+Para ello usamos el método `matchMedia()`, que acepta un argumento, que es como una pregunta que se hace al navegador, en este caso `(prefers-color-scheme: dark)` es la pregunta
+
+Es como decir _El usuario prefiere el color oscuro?_
+
+```js
+if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+  return "dark";
+}
+```
+
+Y para saber la respuesta, se usa la propiedad `matches`, si es true se ejecuta el código de adentro

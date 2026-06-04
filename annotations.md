@@ -543,3 +543,22 @@ Usamos
 pnpm add @astrojs/rss
 ```
 
+Luego, ya que esto es una pagina, creamos un archivo especial dentro de `pages`, llamado `rss.xml.ts`
+
+Y dentro de el, ponemos este código
+
+```ts
+import rss, { pagesGlobToRssItems } from "@astrojs/rss";
+
+export async function GET(context: any) {
+  return rss({
+    title: "Astro Learner | Blog",
+    description: "My journey learning Astro",
+    site: "https://astro-lear.netlify.app/",
+    items: await pagesGlobToRssItems(import.meta.glob("./**/*.md")),
+    customData: `<language>en-us</language>`,
+  });
+}
+```
+
+Podemos cambiar el titulo, description, poner el nombre de nuestro sitio en netlify, con `pagesGlobToRssItems()` importamos todos los posts, y podemos cambiar el lenguaje

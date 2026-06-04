@@ -1,6 +1,6 @@
 ---
-import "../../styles/global.css";
-import Footer from "../components/Footer.astro";
+import "../styles/global.css";
+import Footer from "../components/Header.astro";
 import Header from "../components/Header.astro";
 
 const { pageTitle } = Astro.props;
@@ -35,7 +35,7 @@ const { pageTitle } = Astro.props;
     <Footer />
 
     <script>
-      import "../scripts/menu";
+      import "../pages/scripts/menu.ts";
     </script>
   </body>
 </html>

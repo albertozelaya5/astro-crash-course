@@ -623,10 +623,24 @@ Para ello usamos el método `matchMedia()`, que acepta un argumento, que es como
 
 Es como decir _El usuario prefiere el color oscuro?_
 
-```js
-if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-  return "dark";
-}
+```astro
+<script is:inline>
+  if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+    return "dark";
+  }
+</script>
 ```
 
 Y para saber la respuesta, se usa la propiedad `matches`, si es true se ejecuta el código de adentro
+
+> [!IMPORTANT]
+> Usamos `is:inline`, para decirle a astro _
+> No toques este script, déjalo exactamente donde está_
+
+Normalmente, Astro es muy "inteligente": toma tus scripts, los procesa, los minifica y los mueve al <head> de la página para que carguen mejor. Al poner is:inline, desactivas esa magia.
+
+O sea, lo trata como una etiqueta `script` de la vieja escuela
+
+- Se queda en su sitio: Si pones el script a mitad del <body>, ahí se quedará. Esto es útil si necesitas que algo se ejecute exactamente en ese punto del renderizado (como el script para evitar que la pantalla parpadee al cargar el modo oscuro).
+
+- Sin módulos: Por defecto, los scripts en Astro son módulos de JS (type="module"). Con is:inline, se convierte en un script normal, lo que significa que las variables que declares ahí serán globales en toda la ventana del navegador.

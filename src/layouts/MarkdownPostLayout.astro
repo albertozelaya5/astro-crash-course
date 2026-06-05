@@ -10,11 +10,11 @@ const { frontmatter } = Astro.props;
 </style>
 
 <BaseLayout pageTitle={frontmatter.title}>
-  <p>Published on: {frontmatter.pubDate.toString().slice(0, 10)}</p>
-  <em>{frontmatter.description}</em>
+  <p>{frontmatter.pubDate.toLocaleDateString()}</p>
+  <p><em>{frontmatter.description}</em></p>
 
   <p>Written by {frontmatter.author}</p>
-  
+
   <img
     class="astro-img"
     src={frontmatter.image.url}

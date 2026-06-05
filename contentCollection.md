@@ -15,7 +15,7 @@ Ya que tendremos un esquema para describir mejor la estructura de cada post
 
 ## Convertir posts a blogs
 
-Ahora vamos a actualizar todas las integraciones a su ultima version corriendo el comando
+Ahora vamos a actualizar a la ultima version de a Astro, todas las integraciones a su ultima version corriendo el comando
 
 ```bash
 # Upgrade Astro and official integrations together
@@ -54,3 +54,21 @@ También, todo lo que estaba guardado en `frontmatter` ahora lo estará en `data
   ))
 }
 ```
+
+Este proyecto también generara dinámicamente una pagina por cada etiqueta usando `src/pages/tags/[tag].astro` y muestra una lista de etiquetas en `src/pages/tags/index.astro.
+
+Ahora con ello mismo, vamos a actualizar el `[tag].astro` y el `index.astro`
+
+En el `[tag].astro` lo usamos para mostrar la lista de los posts
+
+```astro
+---
+import { getCollection } from "astro:content";
+
+const allPosts = await getCollection("blog");
+---
+```
+
+Y al parecer `getCollection` es una promesa
+
+E `index.astro` se usa para mostrar las etiquetas que tiene cada post, y al entrar en ellas, mostrar los post que las tienen en su lista

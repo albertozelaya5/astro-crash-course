@@ -7,6 +7,8 @@ const pageTitle = "Home Page";
 
 <BaseLayout pageTitle={pageTitle}>
   <h2>My awesome blog subtitle</h2>
+  <p>Momento actual: ${new Date().toLocaleTimeString()}</p>
+  <p class="real-time">Momento actual real:</p>
   <Greeting
     client:load
     messages={["Hola, Que pedos", "Que ondas prrin", "Uwu"]}

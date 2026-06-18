@@ -71,6 +71,9 @@ También podemos agregar rutas, aquí se usan los `a` de toda la vida, ya que es
 
 Uno también puede crear paginas con un `.md`, por ejemplo `/posts/post-1.md`
 
+> [!IMPORTANT]
+> Esto se usa para contenido que no va a cambiar y que necesita ser reutilizado
+
 Ahi podemos diferenciar en las rutas, al ponerlas en el navegador, cuando existe la pagina y cuando no, por ejemplo poner `/posts/post-2.md` aunque no este creado, para ver el error
 
 Este formato que luce asi
@@ -120,6 +123,8 @@ Asi le pasamos data dinámica al html, pudiendo modificar la metadata también!
 > [!IMPORTANT]
 > Entre estas `---` frontmatter script, solo contiene javascript
 > Y para incluir ese js en el html se ocupa de esto `{}`
+> Este js va a ser del lado del server, por lo que al compilar se quedara estático - static side rendering
+> Ideal para código estático
 
 ```astro
 ---
@@ -147,6 +152,16 @@ Ademas de js, tambien podemos poner css, y para ello usamos la etiqueta `style`
   h1 {
     color: purple;
     font-size: 4rem;
+  }
+</style>
+```
+
+Estos estilos son locales de cada archivo, si queremos estilos globales ponemos
+
+```astro
+<style is:global>
+  h1 {
+    color: purple;
   }
 </style>
 ```
@@ -190,6 +205,7 @@ const pageTitle = "Home Page";
 ### Check in: Unit 3 - Components
 
 Al fin vamos a crear componentes de astro
+Aquí no ocupamos meter el código en fragmentos `<></>` como en react
 
 Vamos a hacer esto
 
@@ -210,8 +226,15 @@ Este es el componente, para leer las props se leen de `Astro.props`
 
 ```astro
 ---
+interface Props {
+  pageTitle: string;
+}
+
 const { platform, username } = Astro.props;
 ---
+
+También es bueno tiparlo(no es necesario), y para ello usamos la keyword
+`Props`, que automáticamente asigna que el componente debe tener esos tipos
 
 <a href={`https://www.${platform}.com/${username}`}>{platform}</a>
 ```
@@ -291,6 +314,10 @@ A grandes rasgos dice: "Busca un contenedor padre que tenga adentro (:has) un el
 Cuando es `unset`, lo que hace es borrar o Resetear el valor que tenga la propiedad antes, usando el valor por defecto
 
 También se puede poner js en los .astro, antes de que termine el `body`
+
+> [!IMPORTANT]
+> Este js si sera del lado del cliente, por lo que se ejecutara en el navegador en tiempo real
+> Ideal si queremos código dinámico
 
 ```html
 <script>
@@ -613,6 +640,13 @@ Una via rápida, es que si responde a los inputs o eventos, tiene una `client` d
 
 Si no lo tienen, se mostrara `Html` y `CSS`, pero no funcionara el js
 
+### Otra directivas
+
+Por cada cambio de directivas se recarga el servidor
+
+- `is:inline` => lo va a dejar como se pone sin optimizar el style, sin mandarlo hasta arriba
+- `is:raw` => que trate todos los elementos del style como si fueran texto
+
 ## Back on dry land. Take your blog from day to night, no island required!
 
 Ahora vasos a hacer un darkTheme
@@ -644,3 +678,47 @@ O sea, lo trata como una etiqueta `script` de la vieja escuela
 - Se queda en su sitio: Si pones el script a mitad del <body>, ahí se quedará. Esto es útil si necesitas que algo se ejecute exactamente en ese punto del renderizado (como el script para evitar que la pantalla parpadee al cargar el modo oscuro).
 
 - Sin módulos: Por defecto, los scripts en Astro son módulos de JS (type="module"). Con is:inline, se convierte en un script normal, lo que significa que las variables que declares ahí serán globales en toda la ventana del navegador.
+
+## Page 404
+
+Por defecto astro tiene la suya, pero si queremos personalizarla, simplemente creamos el archivo dentro de `components>404.astro`
+
+Y ahi podemos poner una de las plantillas de (dev.to)[https://www.dev.to]
+
+## View transitions
+
+Si queremos que nuestra app parezca unaSPAs, usaremos esto
+
+```astro
+---
+import { ClientRouter } from "astro:transitions";
+---
+
+<head>
+  <!-- RESTO DEL CÓDIGO -->
+  <ClientRouter />
+</head>
+```
+
+Con solo esa importación, nuestra app luce como un SPA
+No solo eso, sino que también pre carga nuestros enlaces o rutas, al sombrearlas
+
+Realmente siempre es un `multi page application`
+
+## Recap
+
+Cuando trabajemos en las apps de astro, el compilador va a trabajar en los archivos de `src`
+
+## Section 2
+
+Lo que veremos sera esto
+
+- Animaciones entre pantallas
+- Generación de 151 páginas en tiempo de construcción
+- Lectura de argumentos dinámicos por URL
+- Name Transitions
+- Estilo condicional
+- Path alias de TypeScript
+- Interfaces y tipado
+- Metatags básicas para SEO (title, description e image)
+- Pruebas a la hora de compartir los enlaces por redes sociales

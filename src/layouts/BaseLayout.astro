@@ -2,6 +2,11 @@
 import "../styles/global.css";
 import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
+import { ClientRouter } from "astro:transitions";
+
+interface Props {
+  pageTitle: string;
+}
 
 const { pageTitle } = Astro.props;
 ---
@@ -15,6 +20,8 @@ const { pageTitle } = Astro.props;
     <meta name="generator" content={Astro.generator} />
     <!-- <title>Astro Site</title> -->
     <title>{pageTitle}</title>
+
+    <ClientRouter />
   </head>
 
   <body>
@@ -36,6 +43,12 @@ const { pageTitle } = Astro.props;
 
     <script>
       import "../scripts/menu";
+      const realTime = new Date().getSeconds();
+      const realTimeP = document.querySelector(
+        ".real-time",
+      ) as HTMLParagraphElement;
+
+      realTimeP.innerText = `Momento actual real: ${realTime}`;
     </script>
   </body>
 </html>

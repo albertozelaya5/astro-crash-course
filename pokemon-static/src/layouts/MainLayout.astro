@@ -1,0 +1,30 @@
+---
+import "../styles/global.css";
+
+interface Props {
+  title: string;
+}
+const { title } = Astro.props;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <!-- Required -->
+    <title>{title}</title>
+  </head>
+
+  <body class="bg-slate-500 text-slate-100 m-auto max-w-3xl">
+    <slot />
+  </body>
+
+  <script>
+    fetch("https://pokeapi.co/api/v2/pokemon/1")
+      .then((res) => res.json())
+      .then((data) => console.log(data));
+  </script>
+</html>

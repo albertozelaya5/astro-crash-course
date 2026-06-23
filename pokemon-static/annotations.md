@@ -162,3 +162,5 @@ const imageSrc = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprit
 ```
 
 Y cada elemento debe tener un identificador único, sino astro no va a poder reconocer cual es
+
+## Static pagination

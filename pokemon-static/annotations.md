@@ -129,3 +129,36 @@ const { isBig = false } = Astro.props;
 En el array le mandamos los estilos normales, y en el segundo argumento las props que queremos que sean condicionales
 
 En este caso, border se pondrá si !isBig es true, o sea falso
+
+## ViewTransition + Name Transition
+
+También podemos usar transiciones del `ClientRouter`
+
+```astro
+<head>
+  <ClientRouter />
+</head>
+```
+
+Y también, se pueden hacer transiciones para elementos en especifico, por ejemplo
+
+```astro
+---
+const { name, url, isBig = false } = Astro.props;
+const imageSrc = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`;
+---
+
+<img
+  transition:name={`${name}-image`}
+  class:list={[
+    {
+      "w-26 h-26": isBig,
+      "w-22 h-22": !isBig,
+    },
+  ]}
+  src={imageSrc}
+  alt={name}
+/>
+```
+
+Y cada elemento debe tener un identificador único, sino astro no va a poder reconocer cual es

@@ -1,12 +1,12 @@
 ---
 //* Código Server side only - Momento de construcción
+
 import PokemonCard from "../components/pokemons/PokemonCard.astro";
 import type { PokemonListResponse } from "../interfaces/pokemon-list.response";
-
 import MainLayout from "../layouts/MainLayout.astro";
 
-// const resp = await fetch("https://pokeapi.co/api/v2/pokemon");
-// const data = (await resp.json()) as PokemonListResponse;
+const resp = await fetch("https://pokeapi.co/api/v2/pokemon");
+const data = await resp.json() as PokemonListResponse;
 
 const title = "Pokémon Static | Home";
 ---
@@ -19,6 +19,6 @@ const title = "Pokémon Static | Home";
     aria-label="Listado de Pokémons"
     class="grid grid-cols-1 sm:grid-cols-4 md:grid-cols-5 gap-4 mt-5"
   >
-    <!-- {data.results.map(({ name, url }) => <PokemonCard name={name} url={url} />)} -->
+    {data.results.map(({ name, url }) => <PokemonCard name={name} url={url} />)}
   </section>
 </MainLayout>

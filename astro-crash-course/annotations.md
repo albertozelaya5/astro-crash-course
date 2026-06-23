@@ -41,6 +41,14 @@ pnpm add --save-dev eslint eslint-plugin-astro
 pnpm install --save-dev @typescript-eslint/parser
 ````
 
+## Instalar typescript
+
+```bash
+pnpm add @astrojs/ts-plugin
+```
+
+Y copiar el `tsconfig.json` de la documentation
+
 > [!NOTE]
 > Es opcional subir el sitio a netlify
 

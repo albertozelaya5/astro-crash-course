@@ -12,6 +12,17 @@ export const getStaticPaths = (async () => {
     params: { name },
     props: { name, url },
   }));
+
+  // return [
+  //   {
+  //     params: { name: "bulbasaur" },
+  //     props: { url: "https://..." },
+  //   },
+  //   {
+  //     params: { name: "charmander" },
+  //     props: { url: "https://..." },
+  //   },
+  // ];
 }) satisfies GetStaticPaths;
 
 const { name } = Astro.params;
@@ -38,8 +49,8 @@ const audioSrc = `https://raw.githubusercontent.com/PokeAPI/cries/main/cries/pok
       </button> -->
     </div>
 
-    <!-- <PokemonCard name={name} url={url} isBig /> -->
-    <PokemonCard name={name} url={url} />
+    <PokemonCard name={name} url={url} isBig />
+    <!-- <PokemonCard name={name} url={url} /> -->
 
     <audio controls class="mt-5">
       <source src={audioSrc} type="audio/ogg" />

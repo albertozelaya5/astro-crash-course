@@ -81,3 +81,51 @@ const audioSrc = `https://raw.githubusercontent.com/PokeAPI/cries/main/cries/pok
 - src => el enlace
 
 Y con un mensaje en caso el navegador no soporte el audio
+
+## Create static pages
+
+- SSG => Static side generation
+  Cuando le da click a una pagina, debe estar previamente generada para poderla ver
+
+para crear estas paginas en base a todos los Pokemon, consultamos la API y hacemos el map dinámico
+
+```astro
+---
+export const getStaticPaths = (async () => {
+  const resp = await fetch("https://pokeapi.co/api/v2/pokemon?limit=151");
+  const { results } = (await resp.json()) as PokemonListResponse;
+
+  return results.map(({ name, url }) => ({
+    params: { name },
+    props: { name, url },
+  }));
+}) satisfies GetStaticPaths;
+---
+```
+
+Y esto en el build generara las 151 paginas
+
+## Conditional Style
+
+podemos aplicar clases condicionales de la forma tradicional con `{isBig && "estilo"}`
+
+O podemos hacer esto
+
+```astro
+---
+const { isBig = false } = Astro.props;
+---
+
+<a
+  class:list={[
+    `rounded flex flex-col justify-center items-center p-2`,
+    {
+      border: !isBig,
+      "text-4xl text-blue-300": isBig,
+    },
+  ]}></a>
+```
+
+En el array le mandamos los estilos normales, y en el segundo argumento las props que queremos que sean condicionales
+
+En este caso, border se pondrá si !isBig es true, o sea falso

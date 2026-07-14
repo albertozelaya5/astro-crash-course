@@ -164,3 +164,12 @@ const imageSrc = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprit
 Y cada elemento debe tener un identificador único, sino astro no va a poder reconocer cual es
 
 ## Static pagination
+
+Astro nos da su propia function llamada `paginate()`, que la podemos reutilizar, podemos hacerlo con rutas estáticas `[page].astro` o rutas dinámicas `[...page].astro`
+
+`[...page].astro` => es como decir, todas las paginas que caigan en este componente
+
+> [!IMPORTANT]
+> Para mas detalles, ver [[page].astro](../pokemon-static/src/pages/pokemons/[page].astro)
+
+si nos preguntamos, como es que astro no se confunde al poner "pokemons/1" o "pokemons/ivysaur", al hacerlo estatico, imprime todas las posibilidades en base a si es numérico o string

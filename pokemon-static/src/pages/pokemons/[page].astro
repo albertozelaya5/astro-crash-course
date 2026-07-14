@@ -1,24 +1,67 @@
 ---
-import PokemonCard from "../../components/pokemons/PokemonCard.astro";
+import type { GetStaticPaths } from "astro";
+import Title from "../../components/shared/Title.astro";
 import type { PokemonListResponse } from "../../interfaces/pokemon-list.response";
 import MainLayout from "../../layouts/MainLayout.astro";
+import PokemonCard from "../../components/pokemons/PokemonCard.astro";
 
 //* Código Server side only - Momento de construcción
 
-const resp = await fetch("https://pokeapi.co/api/v2/pokemon");
-const data = (await resp.json()) as PokemonListResponse;
+export const getStaticPaths = (async ({ paginate }) => {
+  const resp = await fetch("https://pokeapi.co/api/v2/pokemon?limit=151");
+  const { results } = (await resp.json()) as PokemonListResponse;
 
-const title = "Pokémon Static | Home";
+  return paginate(results, { pageSize: 20 });
+  // return []
+}) satisfies GetStaticPaths;
+
+const { page } = Astro.props;
 ---
 
-<MainLayout title={title}>
-  <h1 class="text-3xl">Listado de Pokémons</h1>
-  <hr />
+<MainLayout title="Pokemon Sstatic | Home">
+  <Title>Listado Paginado</Title>
 
   <section
-    aria-label="Listado de Pokémons"
-    class="grid grid-cols-1 sm:grid-cols-4 md:grid-cols-5 gap-4 mt-5"
+    aria-label="Listado de Pokemons"
+    class="mt-5 grid grid-cols-2 gap-4 sm:grid-cols-4 md:grid-cols-5"
   >
-    {data.results.map(({ name, url }) => <PokemonCard name={name} url={url} />)}
+    {page?.data.map((pokemon) => <PokemonCard {...pokemon} />)}
+  </section>
+
+  <section class="mt-10 flex items-center gap-2">
+    <a
+      class:list={[
+        "btn",
+        {
+          disabled: !page.url.prev,
+        },
+      ]}
+      href={page.url.prev}>Anteriores</a
+    >
+    <a
+      class:list={[
+        "btn",
+        {
+          disabled: !page.url.next,
+        },
+      ]}
+      href={page.url.next}>Siguientes</a
+    >
+
+    <div class="flex flex-1"></div>
+
+    <span class="text-xl font-bold">Pagina {page.currentPage}</span>
   </section>
 </MainLayout>
+
+<style>
+  @reference "tailwindcss";
+
+  .btn {
+    @apply rounded-md bg-blue-500 p-2 text-white;
+  }
+
+  .disabled {
+    @apply bg-gray-600 text-gray-400;
+  }
+</style>

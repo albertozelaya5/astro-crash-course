@@ -173,3 +173,29 @@ Astro nos da su propia function llamada `paginate()`, que la podemos reutilizar,
 > Para mas detalles, ver [[page].astro](../pokemon-static/src/pages/pokemons/[page].astro)
 
 si nos preguntamos, como es que astro no se confunde al poner "pokemons/1" o "pokemons/ivysaur", al hacerlo estatico, imprime todas las posibilidades en base a si es numérico o string
+
+## TypeScript - Path Alias - Dynamic imports
+
+Para hacer importaciones relativas, hay que irse a [tsconfig.json](../pokemon-static/tsconfig.json)
+
+```ts
+{
+  compilerOptions: {
+    "baseUrl": ".",
+      "paths": {
+      "@components/*": ["./src/components/*"],
+      "@/*": ["src/*"]
+    },
+  }
+}
+```
+
+Comenzamos con `baseUrl`, que es donde inicialmente se buscan los archivos, luego en `paths`, ponemos el nombre de la prop, y dentro de una array su equivalente
+
+```astro
+---
+// import PokemonCard from "../../components/pokemons/PokemonCard.astro";
+//* path Alias
+import PokemonCard from "@components/pokemons/PokemonCard.astro";
+---
+```

@@ -1,8 +1,8 @@
 ---
-import type { GetStaticPaths } from "astro";
 import PokemonCard from "@/components/pokemons/PokemonCard.astro";
 import type { PokemonListResponse } from "@/interfaces/pokemon-list.response";
 import MainLayout from "@/layouts/MainLayout.astro";
+import type { GetStaticPaths } from "astro";
 
 export const getStaticPaths = (async () => {
   const resp = await fetch("https://pokeapi.co/api/v2/pokemon?limit=151");
@@ -29,9 +29,14 @@ const { name } = Astro.params;
 const { url } = Astro.props;
 const id = url.split("/").at(-2);
 const audioSrc = `https://raw.githubusercontent.com/PokeAPI/cries/main/cries/pokemon/latest/${id}.ogg`;
+const imageSrc = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`;
 ---
 
-<MainLayout title="Algun pokemon">
+<MainLayout
+  title={`Pokemon - #${id} ${name}`}
+  description={`información sobre el pokemon ${name}`}
+  image={imageSrc}
+>
   <section class="mx-10 mt-10 flex flex-col items-center justify-center">
     <a href="/">Regresar</a>
     <div class="flex flex-row gap-4">

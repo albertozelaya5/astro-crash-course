@@ -199,3 +199,5 @@ Comenzamos con `baseUrl`, que es donde inicialmente se buscan los archivos, lueg
 import PokemonCard from "@components/pokemons/PokemonCard.astro";
 ---
 ```
+
+## Metadatos - Image y descripción

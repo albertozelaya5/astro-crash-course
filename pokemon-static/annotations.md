@@ -229,3 +229,27 @@ Usamos esto para el SEO
   }
 </style>
 ```
+
+## Indicador de ruta activa
+
+Para obtener la url actual en Astro se usa
+
+```astro
+---
+const { pathname } = Astro.url;
+---
+```
+
+### Transition name
+
+podemos usar esta directiva para animar un elemento en especifico, y asi identificar cual es el que va a cambiar de estilos
+
+```astro
+{
+  pathname === href ? (
+    <div transition:name="menu-line" class="border-b-2 border-blue-500 mx-4" />
+  ) : (
+    <div class="border-b-2 border-transparent mx-4" />
+  )
+}
+```

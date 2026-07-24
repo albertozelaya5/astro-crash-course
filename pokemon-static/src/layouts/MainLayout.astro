@@ -1,6 +1,7 @@
 ---
 import { siteInfo } from "@/globals/site-info";
 // import { ClientRouter } from "astro:transitions";
+import Navbar from "@/components/shared/Navbar.astro";
 import "../styles/global.css";
 
 interface Props {
@@ -43,7 +44,10 @@ const {
     </style>
   </head>
 
-  <body class="bg-slate-500 text-slate-100 my-18 mx-auto max-w-3xl">
-    <slot />
+  <body class="bg-slate-500 text-slate-100">
+    <Navbar />
+    <main class="mt-10 max-w-3xl mx-auto">
+      <slot />
+    </main>
   </body>
 </html>

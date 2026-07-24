@@ -178,14 +178,14 @@ si nos preguntamos, como es que astro no se confunde al poner "pokemons/1" o "po
 
 Para hacer importaciones relativas, hay que irse a [tsconfig.json](../pokemon-static/tsconfig.json)
 
-```ts
+```
 {
   compilerOptions: {
-    "baseUrl": ".",
-      "paths": {
+    "baseUrl": ".";
+    "paths": {
       "@components/*": ["./src/components/*"],
       "@/*": ["src/*"]
-    },
+    };
   }
 }
 ```
@@ -201,3 +201,31 @@ import PokemonCard from "@components/pokemons/PokemonCard.astro";
 ```
 
 ## Metadatos - Image y descripción
+
+Estas son etiquetas <meta> que van en el <head> del HTML, y sirven para que otros sistemas (buscadores, redes sociales) sepan qué es la página sin tener que "leer" todo el contenido.
+
+SEO:
+
+- description — el resumen corto que Google muestra debajo del título en los resultados de búsqueda. Ayuda a que la gente entienda de qué trata la página antes de hacer clic.
+- author — simplemente declara quién hizo la página (metadato informativo, casi no afecta SEO hoy en día).
+
+OG (Open Graph):
+Es un estándar creado por Facebook que usan la mayoría de redes sociales (Facebook, LinkedIn, WhatsApp, etc.) para generar la "tarjeta de vista previa" cuando alguien comparte tu link.
+
+- og:title — el título que aparece en esa tarjeta de preview.
+- og:description — el texto descriptivo debajo del título en la preview.
+- og:image — la imagen que se muestra en la tarjeta (por eso cuando compartes un link en WhatsApp aparece una imagen bonita en vez de solo texto).
+
+En resumen: sin estas etiquetas, si alguien comparte el link de Agritech en redes sociales, se vería como un link pelado sin imagen ni descripción — con ellas, se ve profesional y con contexto.
+
+Usamos esto para el SEO
+
+## Zero JavaScript - ViewTransitions
+
+```astro
+<style>
+  @view-transition {
+    navigation: auto; /* enabled! */
+  }
+</style>
+```
